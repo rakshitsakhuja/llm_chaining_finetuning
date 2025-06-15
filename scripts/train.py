@@ -49,10 +49,11 @@ model = get_peft_model(model, peft_config)
 model.print_trainable_parameters()
 
 # Load dataset
-data = load_dataset("json", data_files="data/synthetic_data.jsonl")
+data = load_dataset("json", data_files="data/synthetic_dataset.jsonl")
 
 # Tokenize
 tokenized_data = data.map(lambda x: formatting_func(x, tokenizer), batched=False)
+# print(tokenized_data["train"][0]['labels'])
 
 # Training args
 training_args = TrainingArguments(

@@ -5,6 +5,16 @@ def get_tokenizer(model_id):
     tokenizer.pad_token = tokenizer.eos_token  # Important for batching
     return tokenizer
 
+# def formatting_func(example, tokenizer):
+#     prompt = f"<|start_of_turn|>user\n{example['instruction']}<|end_of_turn|>\n<|start_of_turn|>assistant\n{example['response']}<|end_of_turn|>"
+#     return tokenizer(prompt, truncation=True, padding="max_length", max_length=2048)
+
 def formatting_func(example, tokenizer):
     prompt = f"<|start_of_turn|>user\n{example['instruction']}<|end_of_turn|>\n<|start_of_turn|>assistant\n{example['response']}<|end_of_turn|>"
-    return tokenizer(prompt, truncation=True, padding="max_length", max_length=2048)
+
+    encoding = tokenizer(prompt, truncation=True, padding="max_length", max_length=2048)
+    
+    # Add labels correctly
+    encoding["labels"] = encoding["input_ids"].copy()
+
+    return encoding
