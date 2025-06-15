@@ -1,0 +1,10 @@
+transformers
+peft
+bitsandbytes
+datasets
+accelerate
+sentencepiece
+huggingface_hub
+scipy
+tqdm
+dotenv
