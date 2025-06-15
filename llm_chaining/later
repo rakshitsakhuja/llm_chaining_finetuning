@@ -1,0 +1,40 @@
+async def format_qa_pairs(self, sub_questions: str, answers: str) -> list:
+        """Format Q&A pairs into JSON format"""
+        prompt = f"""
+        You are preparing data for fine-tuning a Large Language Model.
+
+        Given the following questions and answers:
+
+        {sub_questions}
+        {answers}
+
+        For each question-answer pair, output a single valid JSON object exactly in this format:
+
+        {{
+        "instruction": "<the question>",
+        "response": "<the answer>"
+        }}
+
+        IMPORTANT:
+        - Return only plain JSON objects.
+        - Do NOT include any list brackets, markdown, or text outside the JSON objects.
+        - Output one JSON object per line.
+        - If any answer includes multiple paragraphs, you may include '\\n' where appropriate inside the 'response' value.
+        """
+        formatted_text = await self.llm_client.call_openai(prompt)
+        
+        json_objects = []
+        
+        # Use regex to extract valid JSON objects even if not on clean line breaks
+        matches = re.finditer(r'\{.*?\}', formatted_text, re.DOTALL)
+        
+        for match in matches:
+            json_str = match.group()
+            try:
+                json_obj = json.loads(json_str)
+                if "instruction" in json_obj and "response" in json_obj:
+                    json_objects.append(json_obj)
+            except json.JSONDecodeError:
+                continue
+        
+        return json_objects

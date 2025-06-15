@@ -1,0 +1,23 @@
+TOPICS = [
+    "Gradient Descent Optimization",
+    "Backpropagation Algorithm",
+    "Loss Functions in ML",
+    "Activation Functions",
+    "Overfitting and Underfitting",
+    "Bias-Variance Tradeoff",
+    "Hyperparameter Tuning",
+    # "Convolutional Neural Networks (CNNs)",
+    "Recurrent Neural Networks (RNNs)",
+    "Transformers Architecture",
+    "Attention Mechanisms",
+    "Large Language Models Internals",
+    "Embedding Layers",
+    "Dropout Regularization",
+    "Batch Normalization",
+    "Optimizer Algorithms (Adam, RMSProp) etc",
+    "Autoencoders",
+    "Types of Attention Mechanisms",
+    "Self-Supervised Learning",
+    "Reinforcement Learning Basics",
+    "Reinforcement Learning for LLMs"
+] 
